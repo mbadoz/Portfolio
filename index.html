@@ -1,0 +1,2299 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;900&display=swap" rel="stylesheet">
+    <title>Portfolio Marius Badoz</title>
+    <style>
+        :root {
+            --bg-color: #000046;
+            --text-color: white;
+            --wave-color: #1976D2;
+            --button-bg: white;
+            --button-text: #2196F3;
+            --logo-color: white;
+            --overlay-bg: rgba(255, 255, 255, 0.2);
+            --overlay-hover: rgba(255, 255, 255, 0.8);
+            --shadow-color: rgba(204, 204, 204, 0.3);
+            --about-bg-primary: #000046;
+            --about-bg-secondary: #1976D2;
+            --cards-bg-primary: #000046;
+            --cards-bg-secondary: #1976D2;
+            --focus-border: #051c5e;
+            --circle-hover-shadow: rgba(173, 216, 230, 0.8);
+            --card-pagination-bg: #64B5F6;
+            --card-pagination-active: #e7e9eb;
+            --card-pagination-shadow: #0D47A1;
+            --video-shadow: rgba(173, 216, 230, 0.656);
+            --project-shadow: rgba(173, 216, 230, 0.1);
+        }
+         .blue-theme {
+    /* Couleurs principales */
+    --bg-color: #121212;
+    --text-color: #e0e0e0;
+    --wave-color: #2d333b;
+    --button-bg: #3a3f4b;
+    --button-text: #e0e0e0;
+    --logo-color: #e0e0e0;
+    --transition: 0.3s;
+    
+    /* Overlays et effets */
+    --overlay-bg: rgba(255, 255, 255, 0.1);
+    --overlay-hover: rgba(255, 255, 255, 0.2);
+    --shadow-color: rgba(0, 0, 0, 0.5);
+    
+    /* Backgrounds sectionnels */
+    --about-bg-primary: #1a1a1a;
+    --about-bg-secondary: #252525;
+    --cards-bg-primary: #1a1a1a;
+    --cards-bg-secondary: #2d333b;
+    --description-bg: rgba(30, 30, 30, 0.9);
+    
+    /* Couleurs génériques */
+    --white: #e0e0e0;
+    --black: #121212;
+    
+    /* Éléments d'interface */
+    --focus-border: #4b5563;
+    --circle-hover-shadow: rgba(100, 100, 100, 0.5);
+    --card-pagination-bg: #3a3f4b;
+    --card-pagination-active: #7289da;
+    --card-pagination-shadow: #151515;
+    --video-shadow: rgba(100, 100, 100, 0.4);
+    --project-shadow: rgba(0, 0, 0, 0.3);
+}
+
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: var(--transition);
+        }
+        body {
+            font-family: 'Poppins', sans-serif;
+            min-height: 100vh;
+            background: linear-gradient(135deg, var(--bg-color) 50%, var(--wave-color) 50%);
+            color: var(--text-color);
+            overflow-x: hidden;
+        }
+        /* Style pour le bouton CV fixe */
+.cv-button {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(255, 255, 255, 0.2);
+    color: var(--text-color);
+    padding: 10px 15px;
+    border-radius: 50px;
+    text-decoration: none;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(5px);
+    transition: all 0.3s ease;
+    z-index: 10000; /* Valeur très élevée pour qu'il soit toujours au-dessus */
+    font-weight: bold;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+.cv-button:hover {
+    background-color: var(--overlay-hover);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+}
+
+.cv-button .cv-icon {
+    margin-right: 8px;
+}
+
+/* S'assurer que le bouton reste visible sur tous les modes */
+.gallery-mode .cv-button,
+.details-mode .cv-button,
+.about-mode .cv-button,
+.cards-mode .cv-button {
+    display: flex !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+}
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px;
+            position: relative;
+        }
+        .profile-picture {
+            width: 600px;
+            height: 600px;
+            border-radius: 50%;
+            object-fit: cover;
+            position: absolute;
+            top: 90px;
+            right: 0px;
+        }
+        .content {
+            padding-top: 150px;
+        }
+        h2 {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+        h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+        h3 {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 900;
+        }
+        /* Style pour le switch de thème fixe */
+.switch {
+  font-size: 17px;
+  position: relative;
+  display: inline-block;
+  width: 3.5em;
+  height: 2em;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  inset: 0;
+  border: 2px solid #414141;
+  border-radius: 50px;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 1.4em;
+  width: 1.4em;
+  left: 0.2em;
+  bottom: 0.2em;
+  background-color: white;
+  border-radius: inherit;
+  transition: all 0.4s cubic-bezier(0.23, 1, 0.320, 1);
+}
+
+.switch input:checked + .slider {
+  box-shadow: 0 0 20px rgba(9, 117, 241, 0.8);
+  border: 2px solid #0974f1;
+}
+
+.switch input:checked + .slider:before {
+  transform: translateX(1.5em);
+}
+
+/* Ajustez le conteneur du switch */
+.theme-switch-button {
+  position: fixed;
+  top: 15px;
+  right: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--overlay-bg);
+  padding: 10px;
+  border-radius: 30px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(5px);
+  transition: all 0.3s ease;
+  z-index: 10000;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+.theme-switch-button:hover {
+  background-color: var(--overlay-hover);
+  transform: translateY(-3px);
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+}
+/* Styles pour les icônes SVG du switch */
+.slider .sun-icon,
+.slider .moon-icon {
+  position: absolute;
+  width: 1em;
+  height: 1em;
+  color: #000000; /* couleur du soleil */
+  top: 0.5em;
+}
+
+.slider .sun-icon {
+  left: 0.4em;
+  opacity: 1;
+  transition: opacity 0.3s ease;
+}
+
+.slider .moon-icon {
+  right: 0.4em;
+  color: #000000; /* couleur de la lune */
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+/* Changer les opacités lors de l'activation */
+.switch input:checked + .slider .sun-icon {
+  opacity: 0;
+}
+
+.switch input:checked + .slider .moon-icon {
+  opacity: 1;
+}
+
+/* S'assurer que le switch reste visible dans tous les modes */
+.gallery-mode .theme-switch-button,
+.details-mode .theme-switch-button,
+.about-mode .theme-switch-button,
+.cards-mode .theme-switch-button {
+  display: flex !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+        .social-links {
+            margin-top: 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px; /* Espacement uniforme entre les icônes */
+        }
+        .social-link {
+            color: var(--logo-color);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.2s ease;
+            width: 48px;
+            height: 48px;
+        }
+        .social-link:hover {
+            transform: translateY(-3px);
+        }
+        .social-link img {
+            width: 48px;
+            height: 48px;
+            object-fit: contain;
+        }
+        
+                
+        .logo {
+            width: 150px;
+            margin-right: 20px;
+            margin-top: 20px;
+
+        }
+        /* Flèche vers le bas */
+        .arrow-down, .arrow-up, .arrow-down2, .arrow-up2, .arrow-down3, .arrow-up3 {
+            position: fixed;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            cursor: pointer;
+            animation: bounce 2s infinite;
+            z-index: 999;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--overlay-bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.3s ease, transform 0.3s ease;
+        }
+
+        .arrow-down:hover, .arrow-up:hover, .arrow-down2:hover, .arrow-up2:hover {
+            background: rgba(255, 255, 255, 0.716);
+            transform: translateX(-50%) scale(1.1);
+            
+        }
+
+        .arrow-up {
+            bottom: auto;
+            top: 40px;
+            visibility: hidden;
+        }
+        .arrow-up2 {
+            bottom: auto;
+            top: 40px;
+            visibility: hidden;
+        }
+        .arrow-down2 {
+            bottom: 40px;
+            visibility: hidden;
+        }
+        /* Ajusté pour préserver l'effet de rebond */
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
+            40% { transform: translateX(-50%) translateY(-20px); }
+            60% { transform: translateX(-50%) translateY(-10px); }
+        }
+        /* Style pour l'icône SVG */
+        .arrow-down .arrow-icon, .arrow-up .arrow-icon, 
+        .arrow-down2 .arrow-icon, .arrow-up2 .arrow-icon {
+            width: 24px;
+            height: 24px;
+            color: var(--text-color);
+            stroke-width: 2.5;
+        }
+        /* Galerie de projets en plein écran */
+        .projects-grid {
+            position: fixed;
+            width: 100%;
+            
+            perspective: 1200px;
+            top: 30%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            visibility: hidden;
+        }
+        .rotator {
+            position: absolute;
+            left: 0;
+            right: 0;
+            margin: auto;
+            width: 15%;
+            height: 300px;
+            transform-style: preserve-3d;
+            animation: roter 17s linear infinite;
+        }
+        .rotator:hover {
+            animation-play-state: paused;
+        }
+        @keyframes roter {
+            from {
+                transform: rotateY(0deg);
+            }
+            to {
+                transform: rotateY(360deg);
+            }
+        }
+        .project-item {
+            position: absolute;
+            height: 75%;
+            width: 75%;
+            overflow: hidden;
+            transition: all 0.5s ease;
+            transform-origin: center;
+            box-shadow: 0 0 10px var(--project-shadow);
+            z-index: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: transparent; /* Cacher le texte par défaut */
+            text-align: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+             /* Assurez-vous que c'est en position relative */
+        }
+
+        .project-item img {
+            position: absolute; /* Position absolue par rapport au parent */
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 10px;
+            transition: filter 0.5s ease, transform 0.5s ease;
+        }
+
+        .project-item span {
+            position: absolute; /* Position absolue pour le texte */
+            z-index: 2; /* Au-dessus de l'image */
+            color: transparent; /* Invisible par défaut */
+            transition: color 0.5s ease;
+        }
+
+        .project-item:hover span {
+            color: white; /* Visible au survol */
+        }
+
+        .project-item:hover img {
+            filter: blur(5px) brightness(70%); /* Flou et assombrissement de l'image au survol */
+        }
+        .project-item:hover {
+            box-shadow: 0 0 60px var(--video-shadow); /* Ombre au survol */
+        }
+
+        .project-item:first-child {
+            transform: rotateY(calc(40deg * 1)) translateZ(400px);
+        }
+        .project-item:nth-child(2) {
+            transform: rotateY(calc(40deg * 2)) translateZ(400px);
+        }
+        .project-item:nth-child(3) {
+            transform: rotateY(calc(40deg * 3)) translateZ(400px);
+        }
+        .project-item:nth-child(4) {
+            transform: rotateY(calc(40deg * 4)) translateZ(400px);
+        }
+        .project-item:nth-child(5) {
+            transform: rotateY(calc(40deg * 5)) translateZ(400px);
+        }
+        .project-item:nth-child(6) {
+            transform: rotateY(calc(40deg * 6)) translateZ(400px);
+        }
+        .project-item:nth-child(7) {
+            transform: rotateY(calc(40deg * 7)) translateZ(400px);
+        }
+        .project-item:nth-child(8) {
+            transform: rotateY(calc(40deg * 8)) translateZ(400px);
+        }
+        .project-item:nth-child(9) {
+            transform: rotateY(calc(40deg * 9)) translateZ(400px);
+        }
+        
+        
+        /* Vue détaillée du projet */
+        .project-details {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--bg-color);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 40px;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.5s, visibility 0.5s;
+            z-index: 999;
+            perspective: 1500px;
+        }
+        .project-content {
+            display: flex;
+            width: 100%;
+            height: 100%;
+            transform-style: preserve-3d;
+            align-items: center; /* Centrer verticalement les enfants */
+        }
+        .page-turn-Text {
+            animation: pageTurnText 0.6s ease-in-out;
+        }
+        .page-turn-reverse-Text {
+            animation: pageTurnReverseText 0.6s ease-in-out;
+        }
+        @keyframes pageTurnText {
+            0% {
+                transform: translateY(100px);
+                opacity: 0.5;
+            }
+            50% {
+                opacity: 0.1;
+            }
+            100% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes pageTurnReverseText {
+            0% {
+                transform: translateY(-100px);
+                opacity: 0.5;
+            }
+            50% {
+                opacity: 0.1;
+            }
+            100% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        .page-turn-Image {
+            animation: pageTurnImage 0.6s ease-in-out;
+        }
+        .page-turn-reverse-Image {
+            animation: pageTurnReverseImage 0.6s ease-in-out;
+        }
+        @keyframes pageTurnImage {
+            0% {
+                transform: translateX(-100px);
+                opacity: 0.5;
+            }
+            50% {
+                
+                opacity: 0.5;
+            }
+            100% {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes pageTurnReverseImage {
+            0% {
+                transform: translateX(100px);
+                opacity: 0.5;
+            }
+            50% {
+                
+                opacity: 0.5;
+            }
+            100% {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+        .project-image {
+            width: 40%;
+            height: 80%;
+            background: linear-gradient(135deg, var(--bg-color), var(--wave-color));
+            padding: 20px;
+            border-radius: 10px;
+        }
+        .project-description {
+            position: relative; /* Ajout de cette propriété manquante */
+            width: 50%;
+            color: var(--text-color);
+            margin-left: 5%; /* Ajouter une marge à gauche pour l'espacement */
+             /* Pour centrer verticalement */
+            align-self: center; /* Centrage vertical dans le conteneur flex */
+        }
+        /* Flèches de navigation */
+        .nav-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 3rem;
+            color: var(--text-color);
+            cursor: pointer;
+            z-index: 1000;
+        }
+        .nav-prev {
+            left: 40px;
+        }
+        .nav-next {
+            right: 40px;
+        }
+        /* Bouton de retour à la galerie */
+        .back-to-gallery {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            padding: 10px 20px;
+            background: white;
+            border-radius: 5px;
+            cursor: pointer;
+            z-index: 1001;
+            color: black;
+            font-weight: bold;
+            display: none;
+        }
+        /* Mode À propos */
+        .about-mode {
+            background: linear-gradient(135deg, var(--about-bg-primary) 50%, var(--about-bg-secondary) 50%);
+        }
+        .about-wrapper {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            z-index: 997;
+            transition: opacity 0.5s, visibility 0.5s, transform 0.5s ease-out;
+        }
+        .about-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.5s ease-out;
+        }
+        .circle {
+            width: 15%;
+            height: 30%;
+            border-radius: 50%;
+            
+            position: absolute;
+            transition: transform 0.3s, box-shadow 0.3s;
+            display: flex;
+            z-index: 10;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1rem;
+            opacity: 1; /* Toujours visible */
+        }
+
+        .circle:hover {
+            transform: scale(2.1); /* Grossir le cercle survolé */
+            z-index: 10; /* Mettre le cercle survolé au premier plan */
+            box-shadow: 0 0 20px var(--circle-hover-shadow); /* Effet de surbrillance */
+        }
+
+        .circle:not(:hover) {
+            transform: scale(0.9); /* Réduire les autres cercles */
+            
+}
+        .circle:nth-child(3) { right: 80%; top: 7%; }
+        .circle:nth-child(4) { right: 10%; top: 35%; }
+        .circle:nth-child(2) { right: 75%; top: 58%; color:  rgb(0, 0, 0); }
+        
+            
+        .arrow-path {
+            position: absolute;
+            stroke: white;
+            stroke-width: 0.3;
+            fill: none;
+            opacity: 0.8;
+            transition: stroke-width 0.03s, opacity 0.3s;
+        }
+
+       
+        .about-description {
+            position: fixed; /* Position fixe pour centrer sur l'écran */
+            top: 50%;
+            left: 50%;
+            background: rgba(0, 0, 0, 0.8); /* Fond semi-transparent */
+            color: white;
+            padding: 20px 40px;
+            border-radius: 10px;
+            margin: 10px 10px;
+            font-size: 1.5rem;
+            /*text-align: justify;*/
+            opacity: 0;
+            transition: opacity 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0); /* Effet de surbrillance initial */
+        }
+
+        .about-description.visible {
+            opacity: 1; /* Rendre visible */
+            box-shadow: 0 0 30px var(--circle-hover-shadow); /* Effet de surbrillance */
+        }
+        .circle:not(:hover).blurred {
+            filter: blur(5px); /* Appliquer un flou à l'arrière-plan */
+            transition: filter 0.3s ease;
+        }
+        
+        /* Masquage des modes */
+        .gallery-mode .container,
+        .gallery-mode .project-details,
+        .gallery-mode .about-container
+        .gallery-mode .arrow-down,
+        .gallery-mode .arrow-down3,
+        .gallery-mode .cards-container {
+            display: none !important;
+            visibility: hidden !important;
+        }
+        .gallery-mode .arrow-up,
+        .gallery-mode .arrow-down2,
+        .gallery-mode .projects-grid {
+            /*display: block !important;*/
+            opacity: 1 !important;
+            visibility: visible !important;
+        }
+        .details-mode .projects-grid,
+        .details-mode .arrow-down,
+        .details-mode .arrow-up,
+        .details-mode .side-navbar,
+        .details-mode .arrow-down2 {
+            display: none !important;
+        }
+        .details-mode .project-details {
+            display: flex !important;
+            opacity: 1 !important;
+            visibility: visible !important;
+        }
+        .details-mode .back-to-gallery {
+            display: block !important;
+        }
+        .about-mode .container,
+        .about-mode .cards-container,
+        .about-mode .project-details, .about-mode .arrow-down{
+            display: none !important;
+        }
+        .about-mode .projects-grid {
+            visibility: hidden !important;
+        }
+        .about-mode .rotator {
+            display: none !important;
+        }
+        .about-mode .about-container,
+        .about-mode .arrow-up2,
+        .about-mode .arrow-down3 {
+            display: flex !important;
+            opacity: 1 !important;
+            visibility: visible !important;
+           /* display: block !important; */
+            opacity: 1 !important;
+            visibility: visible !important;
+        }
+        /* Ajoutez ce style pour cacher la vidéo par défaut */
+        .motion-video {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80%;
+            max-width: 800px;
+            z-index: 2000;
+            display: none;
+            border-radius: 15px;
+            clip-path: inset(0 0 20% 0); /* Masque les 20% du bas */
+        }
+        /* Ajoutez ce style pour le flou */
+        .blurred {
+            filter: blur(5px);
+            transition: filter 0.3s;
+        }
+        .nav-prev, .nav-next {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.2);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.nav-prev:hover, .nav-next:hover {
+    background: rgba(255, 255, 255, 0.4);
+    transform: scale(1.1);
+}
+
+.arrow-icon {
+    color: var(--text-color);
+    stroke-width: 2.5;
+}
+
+.nav-prev .arrow-icon, .nav-next .arrow-icon {
+    width: 24px;
+    height: 24px;
+}
+
+/* Mode Cards */
+.cards-mode {
+    background: linear-gradient(135deg, var(--cards-bg-primary) 50%, var(--cards-bg-secondary) 50%);
+}
+
+.cards-mode .container,
+.cards-mode .project-details,
+.cards-mode .arrow-down,
+.cards-mode .arrow-down2,
+.cards-mode .arrow-down3,
+.cards-mode .projects-grid,
+.cards-mode .about-container {
+    display: none !important;
+    visibility: hidden !important;
+}
+
+.cards-mode .arrow-up3,
+.cards-mode .cards-container {
+    opacity: 1 !important;
+    visibility: visible !important;
+}
+
+/* Ajouter les flèches arrow-down3 et arrow-up3 */
+.arrow-down3, .arrow-up3 {
+    position: fixed;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    cursor: pointer;
+    animation: bounce 2s infinite;
+    z-index: 999;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.3s ease, transform 0.3s ease;
+    visibility: hidden;
+}
+
+.arrow-down3:hover, .arrow-up3:hover {
+    background: rgba(255, 255, 255, 0.716);
+    transform: translateX(-50%) scale(1.1);
+    scale: 1.1;
+}
+
+.arrow-up3 {
+    bottom: auto;
+    top: 40px;
+}
+
+/* Styles pour les cartes */
+.cards-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    visibility: hidden;
+    z-index: 998;
+    transition: opacity 0.5s, visibility 0.5s;
+    padding: 50px 0;
+}
+
+@import url(https://fonts.googleapis.com/css?family=Poppins:400,300,500);
+
+.cards-container article {
+    margin: auto;
+    display: block;
+    width: calc(80vw + 248px);
+    max-width: calc(1200px + 248px);
+    min-width: calc(800px + 248px);
+}
+
+.cards-container section.card {
+    background: var(--cards-bg-primary);
+    background: linear-gradient(to right, var(--cards-bg-secondary), var(--cards-bg-primary));
+    border-radius: 24px 24px 24px 48px;
+    padding: 48px 48px 48px 308px;
+    margin: 84px 0;
+    
+    min-width: 800px;
+    align-self: flex-start;
+    position: relative;
+    box-shadow: 5px 0 0 0 var(--shadow-color), -5px 0 0 0 var(--shadow-color), 0 5px 0 0 var(--shadow-color);
+    flex: 1;
+    width: 100%;  /* Chaque carte prend exactement 1/3 de l'espace */
+
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+.card-slider {
+    position: relative;
+    width: 300%;  /* Pour 3 cartes */
+    display: flex;
+    transition: transform 0.5s ease;
+    padding: 0 20px; /* Ajoute de l'espace sur les côtés */
+}
+
+.card-slider section.card:first-child {
+    margin-left: 38%; /* Ajustez cette valeur selon vos besoins */
+}
+.cards-container section.card:nth-child(2) {
+    margin-left: 25.333%; /* Ajustez cette valeur selon vos besoins */
+}
+.cards-container section.card:nth-child(3) {
+    margin-left: 25.333%; /* Ajustez cette valeur selon vos besoins */
+}
+
+.cards-container section.card .text-content {
+    display: flex;
+    flex-direction: column;
+    width: calc(60vw - 192px);
+}
+
+.cards-container section.card .text-content h3 {
+    margin: 0;
+    font-size: 1.5em;
+    max-width: 30ch;
+    color: #fff;
+}
+
+.cards-container section.card .text-content p {
+    margin: 15px 0 14px;
+    color: #fff;
+    font-size: 0.6em;
+    text-align: justify;
+}
+
+.cards-container section.card .text-content a {
+    border: 3px solid #f2f2f2;
+    color: #ffffff;
+    align-self: flex-start;
+    text-decoration: none;
+    padding: 16px 32px;
+    border-radius: 12px;
+    transition: 400ms all;
+}
+
+.cards-container section.card .text-content a:hover {
+    background: var(--focus-border);
+    color: var(--white);
+}
+
+.cards-container section.card .visual {
+    width: 240px;
+    height: 100%;
+    position: absolute;
+    top: -24px;
+    left: 24px;
+    overflow: hidden;
+    border-radius: 24px;
+}
+
+.cards-container section.card .visual img {
+    height: 110%;
+}
+
+
+
+@media all and (max-width: 1100px) {
+    .cards-container {
+        padding: 96px 48px 24px;
+    }
+    .cards-container article {
+        width: 100%;
+        min-width: 100%;
+    }
+    .cards-container section.card {
+        min-width: 100%;
+    }
+    .cards-container section.card .text-content {
+        width: 100%;
+    }
+}
+
+@media all and (max-width: 720px) {
+    .cards-container {
+        padding: 48px 24px 0;
+    }
+    .cards-container section.card {
+        margin: 64px 0;
+        padding: 88px 36px 36px;
+        flex-direction: column;
+        border-radius: 24px;
+    }
+    .cards-container section.card .text-content h3 {
+        max-width: calc(100% - 150px);
+        font-size: 1em;
+    }
+    .cards-container section.card .text-content p,
+    .cards-container section.card .text-content a {
+        font-size: 0.8em;
+    }
+    .cards-container section.card .visual {
+        width: 150px;
+        height: 150px;
+        right: 16px;
+        left: auto;
+        border-radius: 50%;
+    }
+    .cards-container section.card .visual img {
+        width: 100%;
+        height: auto;
+    }
+}
+
+/* Pagination pour les cartes */
+.card-pagination {
+    display: flex;
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+   
+    z-index: 10;
+}
+
+.pagination__item {
+    margin: 0 5px;
+}
+
+.pagination__button {
+    display: inline-block;
+    position: relative;
+    width: 36px;
+    height: 20px;
+    margin: 0 5px;
+    cursor: pointer;
+}
+
+.pagination__button:before, .pagination__button:after {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: calc(50% - 1px);
+    width: 100%;
+    box-shadow: 0 1px 0 var(--card-pagination-shadow);
+}
+
+.pagination__button:before {
+    height: 2px;
+    background-color: var(--card-pagination-bg);
+}
+
+.pagination__button:after {
+    height: 3px;
+    background-color: var(--card-pagination-active);
+    opacity: 0;
+    transition: 0.5s opacity;
+}
+
+.pagination__item--active .pagination__button:after {
+    opacity: 1;
+}
+
+/* Styles pour le défilement horizontal des cartes */
+.cards-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    visibility: hidden;
+    z-index: 998;
+    transition: opacity 0.5s, visibility 0.5s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden; 
+}
+
+.slider-wrapper {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.card-slider {
+    position: relative;
+    width: 300%;  /* Pour 3 cartes */
+    display: flex;
+    transition: transform 0.5s ease;
+    
+}
+
+
+
+/* Navbar latérale */
+.side-navbar {
+  position: fixed;
+  left: 30px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 9999;
+  width: 170px;
+  gap: 30px;
+  display: flex;
+}
+
+.side-navbar ul {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.side-navbar ul li {
+  position: relative;
+  list-style: none;
+}
+
+.side-navbar ul li a {
+  font-size: 1.5em;
+  text-decoration: none;
+  letter-spacing: 2px;
+  line-height: 1em;
+  text-transform: uppercase;
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(255, 255, 255, 0.5);
+}
+
+.side-navbar ul li a::before {
+  content: attr(data-text);
+  position: absolute;
+  color: var(--clr);
+  width: 0;
+  opacity: 0;
+  transition: 1s;
+  border-right: 8px solid var(--clr);
+  -webkit-text-stroke: 1px var(--clr);
+}
+
+.side-navbar ul li a:hover::before {
+  width: 100%;
+  filter: drop-shadow(0 0 25px var(--clr));
+  opacity: 1;
+}
+
+/* Classe active pour l'élément de menu sélectionné */
+.side-navbar ul li.active a::before {
+  width: 100%;
+  filter: drop-shadow(0 0 25px var(--clr));
+  opacity: 1;
+}
+
+/* S'assurer que la navbar reste visible dans tous les modes */
+.gallery-mode .side-navbar,
+.about-mode .side-navbar,
+.cards-mode .side-navbar {
+  display: block !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  
+}
+
+
+/* Éviter que les transformations CSS ne perturbent les interactions */
+.gallery-mode .project-item,
+.gallery-mode .rotator {
+    pointer-events: auto !important;
+}
+
+/* S'assurer que les éléments dans le mode galerie sont interactifs */
+.gallery-mode .projects-grid {
+    pointer-events: auto !important;
+}
+    </style>
+</head>
+<body class="fade-in">
+<!-- Switch de thème fixe -->
+<div class="theme-switch-button">
+    <label class="switch">
+        <input type="checkbox" id="themeToggle">
+        <span class="slider">
+            <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="5"></circle>
+                <line x1="12" y1="1" x2="12" y2="3"></line>
+                <line x1="12" y1="21" x2="12" y2="23"></line>
+                <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                <line x1="1" y1="12" x2="3" y2="12"></line>
+                <line x1="21" y1="12" x2="23" y2="12"></line>
+                <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+            </svg>
+            <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+            </svg>
+        </span>
+    </label>
+</div>
+<!-- Bouton CV fixe -->
+<a href="document/cv.pdf" target="_blank" class="cv-button">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="cv-icon">
+        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+        <polyline points="14 2 14 8 20 8"></polyline>
+        <line x1="16" y1="13" x2="8" y2="13"></line>
+        <line x1="16" y1="17" x2="8" y2="17"></line>
+        <polyline points="10 9 9 9 8 9"></polyline>
+    </svg>
+    <span>CV</span>
+</a>
+
+    <!-- Navbar latérale -->
+<nav class="side-navbar">
+  <ul>
+    <li style="--clr:#ffffff">
+      <a href="#" onclick="goToHome(); return false;" data-text=" Accueil"> Accueil </a>
+    </li>
+    <li style="--clr:#ffffff">
+      <a href="#" onclick="showProjects(); return false;" data-text=" Projets"> Projets </a>
+    </li>
+    <li style="--clr:#ffffff">
+      <a href="#" onclick="showAbout(); return false;" data-text=" A propos"> A propos </a>
+    </li>
+    <li style="--clr:#ffffff">
+      <a href="#" onclick="showCards(); return false;" data-text=" Bilans"> Bilans </a>
+    </li>
+  </ul>
+</nav>
+
+    <div class="container">
+        <img src="image/photo-pro.png" alt="Photo de profil" class="profile-picture">
+        <div class="content">
+            <h2>Etudiant en Science des données</h2>
+            <h1>MARIUS BADOZ<br>TECHNICIEN PILOTAGE DATA</h1>
+            
+            
+            <div class="social-links">
+                <a href="https://github.com/mbadoz" class="social-link"><img src="image/logo_github.png"/></a>
+                <a href="https://www.linkedin.com/in/marius-badoz/" class="social-link"><img src="image/logo_linkedin.png"/></a>
+            </div>
+            <div class="logos">
+                <img src="image/Iut.png" alt="Logo Efrei" class="logo">
+                <img src="image/logo_groupama.png" alt="Logo Groupama" class="logo">
+            </div>
+        </div>
+    </div>
+    <video id="motionDesign" class="motion-video" src="motion_design/Switch.webm" muted></video>
+
+
+    <!-- Flèche de navigation -->
+    <div class="arrow-down" onclick="showProjects()">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="arrow-icon">
+            <path d="M7 13l5 5 5-5"></path>
+            <path d="M7 6l5 5 5-5"></path>
+        </svg>
+    </div>
+    <!-- Flèche vers le haut -->
+    <div class="arrow-up" onclick="goToHome()">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="arrow-icon">
+            <path d="M17 11l-5-5-5 5"></path>
+            <path d="M17 18l-5-5-5 5"></path>
+        </svg>
+    </div>
+    <!-- Bouton de retour à la galerie -->
+    <div class="back-to-gallery" onclick="goToGallery()">← Retour à la galerie</div>
+    <svg id="blob-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" style="display: none;">
+        <defs>
+          <clipPath id="blob-clip" clipPathUnits="objectBoundingBox">
+            <!-- Chemin normalisé entre 0 et 1 -->
+            <path d="M0.47,0.03 C0.53,-0.01,0.59,0.01,0.64,0.06 
+                     C0.69,0.11,0.74,0.17,0.72,0.23 
+                     C0.70,0.29,0.63,0.34,0.58,0.39 
+                     C0.53,0.44,0.50,0.50,0.45,0.50 
+                     C0.40,0.50,0.34,0.44,0.29,0.48 
+                     C0.24,0.52,0.18,0.61,0.12,0.59 
+                     C0.06,0.57,0.00,0.48,0.00,0.42 
+                     C-0.01,0.36,0.05,0.29,0.05,0.22 
+                     C0.05,0.15,0.11,0.08,0.17,0.06 
+                     C0.23,0.04,0.29,0.07,0.35,0.04 
+                     C0.41,0.01,0.41,-0.01,0.47,0.03 Z"/>
+          </clipPath>
+        </defs>
+      </svg>
+    <!-- Galerie de projets -->
+    <div class="projects-grid" id="projectsGrid">
+        <div class="rotator">
+            <div class="project-item" data-index="0"> 
+                <img src="image/projet_streamlit.png" alt="items photo"  />
+                <span>Dashboard Streamlit</span>
+            </div>
+            <div class="project-item" data-index="1"> 
+                <img src="image/Datatrade2.png" alt="items photo" /> 
+                <span>Site Web dynamique</span>
+            </div>
+            <div class="project-item" data-index="2"> 
+                <img src="image/projet_vba.png" alt="items photo" /> 
+                <span>Appli vba</span>
+            </div>
+            <div class="project-item" data-index="3"> 
+                <img src="image/flash_économique.png" alt="items photo" />
+                <span>Rapport prévisions économiques</span>
+            </div>
+            <div class="project-item" data-index="4"> 
+                <img src="image/SIG.png" alt="items photo" />
+                <span>Cartographie avec un SIG</span>
+            </div>
+            <div class="project-item" data-index="5"> 
+                <img src="image/powerbi.png" alt="items photo" />
+                <span>Analyse de données et datavisualisation</span>
+            </div>
+            <div class="project-item" data-index="6"> 
+                <img src="image/projet_web_scrapping.PNG" alt="items photo" />
+                <span>Collecte de données Web</span>
+            </div>
+            <div class="project-item" data-index="7"> 
+                <img src="image/performance_gca.jpeg" alt="items photo" />
+                <span>Application Qliksense</span>
+            </div>
+            <div class="project-item" data-index="8"> 
+                <img src="image/regression.avif" alt="items photo" />
+                <span>Régréssion linéaire</span>
+            </div>
+        </div>
+    </div>
+    <!-- Flèche vers le bas pour À propos -->
+    <div class="arrow-down2" onclick="showAbout()">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="arrow-icon">
+            <path d="M7 13l5 5 5-5"></path>
+            <path d="M7 6l5 5 5-5"></path>
+        </svg>
+    </div>
+    <!-- Flèche vers le Haut pour À gallerie projet -->
+    <div class="arrow-up2" onclick="goToGallery()">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="arrow-icon">
+            <path d="M17 11l-5-5-5 5"></path>
+            <path d="M17 18l-5-5-5 5"></path>
+        </svg>
+    </div>
+    <!-- Vue détaillée du projet -->
+    <div class="project-details" id="projectDetails">
+        <span class="nav-prev" onclick="changeProject(-1)">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="arrow-icon">
+                <path d="M19 12H5"></path>
+                <path d="M12 5l-7 7 7 7"></path>
+            </svg>
+        </span>
+        <div class="project-content" id="projectContent">
+            <div class="project-image"></div>
+            <div class="project-description">Description du projet</div>
+        </div>
+        <span class="nav-next" onclick="changeProject(1)">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="arrow-icon">
+                <path d="M5 12h14"></path>
+                <path d="M12 5l7 7-7 7"></path>
+            </svg>
+        </span>
+    </div>
+    <!-- Mode À propos -->
+    <div class="about-wrapper" id="aboutWrapper">
+        <div class="about-container" id="aboutContainer">
+            <svg class="arrow-path" viewBox="0 0 26 13" xmlns="http://www.w3.org/2000/svg">
+                <path d="M4 3C9 12 20 7 20 7 10 16 9 10 6 10" />
+            </svg>
+            
+            <div class="circle" data-index="0" style="background-image:url('image/entp.jpg'); background-size: cover ;">Personalité</div>
+            <div class="circle" data-index="2" style="background-image: url('image/photo\ profil\ brut\ butcher.jpg'); background-size: cover;">Qui suis je ?</div>
+            <div class="circle" data-index="1" style="background-image: url('image/hand.jpg'); background-size: cover;">Handball</div>
+            <div class="about-description">Description de l'élément actif</div>
+        </div>
+    </div>
+    <!-- Flèche vers le bas pour les cartes -->
+    <div class="arrow-down3" onclick="showCards()">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="arrow-icon">
+            <path d="M7 13l5 5 5-5"></path>
+            <path d="M7 6l5 5 5-5"></path>
+        </svg>
+    </div>
+
+    <!-- Flèche vers le haut pour retourner au mode about -->
+    <div class="arrow-up3" onclick="showAbout()">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="arrow-icon">
+            <path d="M17 11l-5-5-5 5"></path>
+            <path d="M17 18l-5-5-5 5"></path>
+        </svg>
+    </div>
+
+    <!-- Conteneur des cartes -->
+    <div class="cards-container" id="cardsContainer">
+        <div class="slider-wrapper">
+            <div class="card-slider" id="cardSlider">
+                <section class="card">
+                    <div class="text-content">
+                        <h3>Bilan personel BUT 1</h3>
+                        <p>
+    Attiré par les mathématiques et la physique, j'ai choisi en seconde les spécialités Mathématiques et Physique-Chimie, puis l'option Maths Expertes en terminale. Intéressé par le BUT SD de Niort découvert lors des portes ouvertes en 2022, j'ai confirmé mon choix en y retournant en 2023 pour une immersion. À la fin de ma terminale, j'étais convaincu de vouloir intégrer le BUT SD à Niort, où j'ai été accepté après avoir obtenu mon baccalauréat avec mention assez bien.
+  </p>
+
+  <p>
+    L'année commence donc et prend un tournant auquel je ne m'attendais pas. Étant venu dans cette formation initialement pour mon goût pour les mathématiques je découvre la programmation et accroche immédiatement. J'y retrouve la logique mathématique que j'apprécie et vois chaque programme comme un casse-tête à résoudre. Je progresse assez vite, notamment grâce aux nombreux projets.
+  </p>
+
+  <p>
+    Les nombreux projets proposés au cours de l'année m'ont permis de progresser énormément. Je trouve que les projets sont une méthode d'apprentissage très efficace, car ils sont plus concrets. Désormais, je compte poursuivre ma formation avec le parcours "Visualisations et Outils Décisionnels" en alternance chez Groupama. Je suis certain de vouloir continuer vers un master après cette formation, bien que la spécialisation de celui-ci reste encore floue. J'espère que l'alternance m'éclairera et me permettra de découvrir un maximum de domaines.
+  </p>  
+                       <!-- <a href="#">En savoir plus</a> -->
+                    </div>
+                    <div class="visual">
+                        <img src="image/But1.png" alt="Photo parcours académique" />
+                    </div>
+                </section>
+                
+                <section class="card">
+                    <div class="text-content">
+                        <h3>Expérience professionnelle</h3>
+                        <p>Depuis toujours, l’entrepreneuriat m’attire. En début d’année, j’ai décidé de me lancer en mettant mes compétences en programmation au service de petites entreprises. Cette initiative m’a permis de progresser techniquement, mais surtout de gagner en rigueur et en organisation.
+
+Pris par l’envie de faire grandir mon projet, j’ai rapidement monté une équipe pour déléguer certaines missions. Cependant, j’ai réalisé que manager une équipe et diriger une entreprise sont des compétences à part entière, qui s’apprennent. Cette charge mentale a fini par impacter mes résultats scolaires, notamment en mathématiques. J’ai donc pris la décision de mettre mon activité entrepreneuriale entre parenthèses pour me recentrer sur mes études.</p>  
+                        <p>Au second semestre, j’ai réussi à redresser mes notes en mathématiques. Cette expérience m’a toutefois confirmé une chose : j’ai besoin d’innover, d'explorer, de créer. Mais cette soif d'aller toujours plus loin peut aussi me jouer des tours. Après mûre réflexion, j’ai compris qu’un cursus en école d’ingénieur correspondait bien mieux à mes aspirations qu’un master classique. Mon alternance, durant laquelle j’ai souvent été force de proposition, m’a conforté dans ce choix.</p>
+                        <p>À la rentrée prochaine, j’intègre donc une école d’ingénieur. Mon objectif : poursuivre ma quête d’innovation, que ce soit en créant ma propre entreprise ou en développant des applications dans le vaste domaine de la data. Gravir les échelons en tant que salarié au sein d’une entreprise innovante reste également une option que je considère sérieusement.</p>
+                    </div>
+                    <div class="visual">
+                        <img src="image/BUT2_retour_dexp.JPEG" alt="Logo Groupama" />
+                    </div>
+                </section>
+                
+                <section class="card">
+                    <div class="text-content">
+                        <h3>Alternance Groupama</h3>
+                        <p>Alternant au sein l’Administration des Ventes de Groupama Centre Atlantique, j’ai mené des missions concrètes mêlant automatisation, visualisation de données et pilotage d’activité. Dès mon arrivée, j’ai automatisé des suivis complexes pour le COMEX via VBA. J’ai ensuite développé une application de suivi SEO à partir de données Google, en introduisant Python et une API externe une première dans le service. Ces expériences m’ont permis d’allier rigueur, autonomie et esprit d’initiative tout en développant mes compétences techniques. J’ai aussi appris à collaborer avec des équipes variées (marketing, direction, etc.) et à structurer des projets d’analyse de données de bout en bout. Ce parcours m’a confirmé mon attrait pour l’innovation, la data et les solutions concrètes aux enjeux métiers. Mon immersion chez Groupama m’a profondément enrichi sur le plan professionnel comme personnel.</p>  
+                        <a href="document/Rapport_alternance.pdf">Voir le rapport complet</a>
+                    </div>
+                    <div class="visual">
+                        <img src="image/siege_groupama.png" alt="Compétences techniques" />
+                    </div>
+                </section>
+            </div>
+            
+            <ul class="card-pagination" id="cardPagination">
+                <li class="pagination__item pagination__item--active"><a class="pagination__button"></a></li>
+                <li class="pagination__item"><a class="pagination__button"></a></li>
+                <li class="pagination__item"><a class="pagination__button"></a></li>
+            </ul>
+        </div>
+    </div>
+    <script>
+        let currentProject = 0;
+        const projects = document.querySelectorAll('.project-item');
+        const projectDetails = document.getElementById('projectDetails');
+        const projectsGrid = document.getElementById('projectsGrid');
+        const aboutContainer = document.getElementById('aboutContainer');
+        const cardsContainer = document.getElementById('cardsContainer');
+        const circle = document.querySelectorAll('.circle');
+
+        // Tableau de descriptions de projets
+        const projectDescriptions = [
+            `<h2>Dashboard Streamlit: Analyse des logements Airbnb parisiens</h2>
+            <p>Application interactive permettant d'ilustrer la réaliter des airbnb parisiens et de les comparer à travers plusieur axes.</p>
+            <p><strong>Technologies:</strong> Python, </p> 
+            <p><strong>Frameworks</strong> Streamlit, Pandas, Plotly, Geopy</p>
+            <p><strong>Compétences:</strong> Analyse BI, Analyse de données, Visualistion de données, Création de dashboard, Cartographie</p>`,
+            
+            `<h2>Site Web dynamique: simulateur d'investissement en bourse : DATATRADE</h2>
+            <p>Permet à l'utilisateur de se créer un compte pour créer ses propres plans d'épargnes sur 10 ETFs différents chacun indéxés sur 
+                un indice boursier d'un pays </p>
+            <p><strong>Technologies:</strong> PHP, SQL, HTML, CSS, Mysql, JavaScript</p>
+            <p><strong>Compétences:</strong> Intégration d'une API, Création d'une de données, Création d'un site web</p>`,
+            
+            `<h2>Appli vba: Outil de recrutement pour la section sportif de foot des chamoix</h2>
+            <p>Tableau de bord interactif pour analyser les performances de chaques candidats aux tests et les comparer </p>
+            <p><strong>Technologies:</strong> Excel, VBA</p>
+            <p><strong>Compétences:</strong> Conception d'application</p>`,
+            
+            `<h2>Rapport prévisions économiques: Prévisions des Importations Chinoises</h2>
+            <p>Dans la peau d'un bureau d'étude, analyse et prévision des importations chinoises face aux tensions commerciales mondiales, afin d’aider le gouvernement à anticiper les risques et à sécuriser les approvisionnements.</p>
+            <p><strong>Technologies :</strong>Excel, R.</p>
+            <p><strong>Compétences :</strong> Analyse de séries temporelles, Modélisation additive/multiplicative, Prévision à court terme, Gestion de la saisonnalité, Régréssion linéaire.</p>`,
+            
+            `<h2>Cartographie avec un SIG: analyse géospatial de Mcdonald's en France</h2>
+            <p>Étude pour guider les directeurs de Mc’Donalds dans l’expansion de franchises en France métropolitaine, en analysant la répartition spatiale, la densité par habitant et la proximité des transports.</p>
+            <p><strong>Technologies :</strong> QGIS, Excel.</p>
+            <p><strong>Compétences :</strong> Analyse spatiale, modélisation statistique, cartographie thématique, gestion de données géoréférencées.</p>`,
+            
+            `<h2>Analyse de données et datavisualisation: outils de decision pour calyxis</h2>
+            <p>Créer un outil interactif permettant d'évaluer l'étendue et les caractéristiques des AcVC en France, d'identifier les facteurs de risque et de gravité afin d'aider la prise de décisions. Durant ce projet j'étais également en charge de piloter tout le groupe à travers le rôle de scrum masteur</p>
+            <p><strong>Technologies:</strong> Python, Powerbi</p>
+            <p><strong>Frameworks</strong> scipy.stats, Pandas, numpy, tkinter</p>
+            <p><strong>Compétences:</strong> Analyse de données, Visualistion de données, Création de dashboard, Traitement de données, Gestion de projet, Mathématiques appliqués</p>`,
+            
+            `<h2>Collecte de données web: web scrapping de données immobilières</h2>
+            <p>Scrapping du prix au mèttre carré moyen par département et du salaire moyen par département pour faire une cartographie du pouvoir d'achat immobilier en france par département</p>
+            <p><strong>Technologies:</strong>Python</p>
+            <p><strong>Frameworks</strong> folium, Pandas, Geopy, Webbrowser, Matplotlip, Branca  </p>
+            <p><strong>Compétences:</strong> Web scrapping, Cartographie, Analyse BI</p>`,
+            
+            `<h2>Application Qliksense: suivi des performances Google de Groupama centre Atlantique</h2>
+            <p>Récupération des données via une api et création d'un tableau de bord pour aider le marketing digital de groupama à visualiser le référencement SEO de toutes ses agences et prendre des décisions.</p>
+            <p><strong>Technologies:</strong> Python, Qliksense, Visual studio codes, SQL</p>
+            <p><strong>Frameworks</strong> requests, Pandas</p>
+            <p><strong>Compétences:</strong> Analyse de données, Visualistion de données, Création de dashboard, Traitement de données, Banques assurances, Marketing digitale, intégration d'API</p>`,
+            
+            `<h2>Régression linéaire: prédiction des appartements du bassin parisien</h2>
+            <p>Appliquer un modèle linéaire afin de prédire des prix d'appartements à Paris..</p>
+            <p><strong>Technologies:</strong> R</p>
+            <p><strong>Rôle:</strong>Mathématiques appliqués</p>`
+        ];
+
+        function showProjects() {
+            document.body.classList.remove('details-mode', 'about-mode', 'cards-mode');
+            document.body.classList.add('gallery-mode');
+            projectsGrid.style.opacity = 1;
+            projectsGrid.style.visibility = 'visible';
+            cardsContainer.style.opacity = 0;
+            cardsContainer.style.visibility = 'hidden'
+            updateActiveMenuItem('projects');
+        }
+
+    function goToGallery() {
+    // Code existant...
+    document.body.classList.remove('details-mode');
+    projectDetails.style.opacity = 0;
+    projectDetails.style.visibility = 'hidden';
+    document.body.classList.remove('about-mode');
+    document.body.classList.remove('cards-mode');
+    
+    // Important: Réinitialiser complètement ces éléments
+    const aboutWrapper = document.getElementById('aboutWrapper');
+    aboutWrapper.style.transform = '';
+    aboutWrapper.style.opacity = 0;
+    aboutWrapper.style.visibility = 'hidden';
+    
+    // Réinitialiser le conteneur about
+    const aboutContainer = document.getElementById('aboutContainer');
+    aboutContainer.style.transform = '';
+    aboutContainer.style.opacity = 0;
+    aboutContainer.style.visibility = 'hidden';
+    
+    // Réinitialiser la boîte de description
+    const descriptionBox = document.querySelector('.about-description');
+    if (descriptionBox) {
+        descriptionBox.style.position = '';
+        descriptionBox.style.top = '';
+        descriptionBox.style.left = '';
+        descriptionBox.style.transform = '';
+        descriptionBox.classList.remove('visible');
+    }
+    
+    // Réinitialiser tous les cercles
+    document.querySelectorAll('.circle').forEach(circle => {
+        circle.style.transform = '';
+        circle.style.filter = '';
+        circle.style.zIndex = '';
+        circle.classList.remove('blurred');
+    });
+    
+    // Réinitialiser le chemin SVG
+    const arrowPath = document.querySelector('.arrow-path');
+    if (arrowPath) {
+        arrowPath.style.transform = '';
+        arrowPath.style.opacity = '';
+    }
+    
+    // Masquer les cartes
+    const cardsContainer = document.getElementById('cardsContainer');
+    cardsContainer.style.opacity = 0;
+    cardsContainer.style.visibility = 'hidden';
+    
+    // Ajouter la classe gallery-mode à la fin pour éviter les conflits
+    document.body.classList.add('gallery-mode');
+    
+    // Afficher la grille de projets
+    projectsGrid.style.opacity = 1;
+    projectsGrid.style.visibility = 'visible';
+    projectsGrid.style.pointerEvents = 'auto'; // Important pour les clics
+    
+    // Réinitialiser les écouteurs d'événements pour les projets
+    resetProjectEventListeners();
+    
+    updateActiveMenuItem('projects');
+}
+
+// Nouvelle fonction pour réinitialiser les écouteurs d'événements des projets
+function resetProjectEventListeners() {
+    const projects = document.querySelectorAll('.project-item');
+    projects.forEach((project, index) => {
+        // Supprimer les anciens écouteurs en clonant l'élément
+        const newProject = project.cloneNode(true);
+        project.parentNode.replaceChild(newProject, project);
+        
+        // Ajouter les nouveaux écouteurs
+        newProject.addEventListener('click', () => {
+            currentProject = index;
+            updateProjectDetails();
+            document.body.classList.remove('gallery-mode');
+            document.body.classList.add('details-mode');
+            projectDetails.style.opacity = 1;
+            projectDetails.style.visibility = 'visible';
+        });
+        
+        // S'assurer que l'élément est cliquable
+        newProject.style.pointerEvents = 'auto';
+        newProject.style.cursor = 'pointer';
+    });
+    
+    // Réinitialiser l'animation du rotateur
+    const rotator = document.querySelector('.rotator');
+    if (rotator) {
+        // Réinitialiser l'animation en la retirant puis en la réappliquant
+        rotator.style.animation = 'none';
+        setTimeout(() => {
+            rotator.style.animation = 'roter 17s linear infinite';
+        }, 10);
+        
+        // Ajouter les écouteurs pour arrêter l'animation au survol
+        rotator.addEventListener('mouseenter', () => {
+            rotator.style.animationPlayState = 'paused';
+        });
+        
+        rotator.addEventListener('mouseleave', () => {
+            rotator.style.animationPlayState = 'running';
+        });
+    }
+}
+
+        projects.forEach((project, index) => {
+            project.addEventListener('click', () => {
+                currentProject = index;
+                updateProjectDetails();
+                document.body.classList.remove('gallery-mode');
+                document.body.classList.add('details-mode');
+                projectDetails.style.opacity = 1;
+                projectDetails.style.visibility = 'visible';
+            });
+        });
+
+        function updateProjectDetails() {
+            // Mettre à jour le contenu avec la description spécifique du projet
+            document.querySelector('.project-description').innerHTML = projectDescriptions[currentProject];
+            
+            // Récupérer l'URL de l'image du projet courant
+            const projectImageSrc = projects[currentProject].querySelector('img').src;
+            
+            // Appliquer l'image comme arrière-plan
+            document.querySelector('.project-image').style.backgroundImage = `url('${projectImageSrc}')`;
+            document.querySelector('.project-image').style.backgroundSize = 'cover';
+            document.querySelector('.project-image').style.backgroundPosition = 'center';
+        }
+
+        function changeProject(direction) {
+            // Sélectionner les éléments pour l'animation
+            const projectImage = document.querySelector('.project-image');
+            const projectDescription = document.querySelector('.project-description');
+            
+            // Supprimer d'abord toutes les classes d'animation existantes
+            projectImage.classList.remove('page-turn-Image', 'page-turn-reverse-Image');
+            projectDescription.classList.remove('page-turn-Text', 'page-turn-reverse-Text');
+            
+            // Forcer un reflow pour réinitialiser les animations
+            void projectImage.offsetWidth;
+            void projectDescription.offsetWidth;
+            
+            // Appliquer l'animation appropriée selon la direction
+            if (direction > 0) {
+                projectImage.classList.add('page-turn-Image');
+                projectDescription.classList.add('page-turn-Text');
+            } else {
+                projectImage.classList.add('page-turn-reverse-Image');
+                projectDescription.classList.add('page-turn-reverse-Text');
+            }
+            
+            // Attendre que l'animation atteigne son milieu pour changer le contenu
+            setTimeout(() => {
+                // Mettre à jour le projet courant
+                currentProject += direction;
+                if(currentProject < 0) currentProject = projects.length - 1;
+                if(currentProject >= projects.length) currentProject = 0;
+                
+                // Mettre à jour le contenu
+                updateProjectDetails();
+            }, 300); // Mi-chemin de l'animation
+    
+            // Supprimer les classes d'animation une fois terminée
+            setTimeout(() => {
+                projectImage.classList.remove('page-turn-Image', 'page-turn-reverse-Image');
+                projectDescription.classList.remove('page-turn-Text', 'page-turn-reverse-Text');
+            }, 600);
+        }
+        
+    document.getElementById('themeToggle').addEventListener('change', function () {
+    document.body.classList.toggle('blue-theme');
+
+   /*  // Lancer la vidéo appropriée selon l'état du switch
+    const video = document.getElementById('motionDesign');
+    const container = document.querySelector('.container');
+    
+    // Choisir la vidéo en fonction de l'état du switch
+    if (this.checked) {
+        // Mode sombre activé - lancer Switch1
+        video.src = "motion_design/Switch1.mp4";
+    } else {
+        // Mode sombre désactivé - lancer Switch2
+        video.src = "motion_design/Switch2.mp4";
+    } 
+
+    video.style.display = 'block';
+    video.currentTime = 0; // Réinitialiser à chaque clic
+    video.play();
+
+    // Ajouter le flou
+    container.classList.add('blurred');
+
+    // Retirer le flou et cacher la vidéo après 3 secondes
+    setTimeout(() => {
+        video.style.display = 'none';
+        container.classList.remove('blurred');
+    }, 3000); */
+}); 
+
+        function goToHome() {
+    // Retirer les classes de mode
+    document.body.classList.remove('gallery-mode', 'details-mode', 'about-mode', 'cards-mode');
+    
+    // Masquer les conteneurs
+    projectsGrid.style.opacity = 0;
+    projectsGrid.style.visibility = 'hidden';
+    
+    // Important: Réinitialiser complètement ces éléments
+    const aboutWrapper = document.getElementById('aboutWrapper');
+    if (aboutWrapper) {
+        aboutWrapper.style.transform = '';
+        aboutWrapper.style.opacity = 0;
+        aboutWrapper.style.visibility = 'hidden';
+    }
+    
+    // Réinitialiser le conteneur about
+    const aboutContainer = document.getElementById('aboutContainer');
+    aboutContainer.style.transform = '';
+    aboutContainer.style.opacity = 0;
+    aboutContainer.style.visibility = 'hidden';
+    
+    // Réinitialiser la boîte de description
+    const descriptionBox = document.querySelector('.about-description');
+    if (descriptionBox) {
+        descriptionBox.style.position = '';
+        descriptionBox.style.top = '';
+        descriptionBox.style.left = '';
+        descriptionBox.style.transform = '';
+        descriptionBox.classList.remove('visible');
+    }
+    
+    // Réinitialiser tous les cercles
+    document.querySelectorAll('.circle').forEach(circle => {
+        circle.style.transform = '';
+        circle.style.filter = '';
+        circle.style.zIndex = '';
+        circle.classList.remove('blurred');
+    });
+    
+    // Réinitialiser le chemin SVG
+    const arrowPath = document.querySelector('.arrow-path');
+    if (arrowPath) {
+        arrowPath.style.transform = '';
+        arrowPath.style.opacity = '';
+    }
+    
+    // Masquer les cartes
+    const cardsContainer = document.getElementById('cardsContainer');
+    cardsContainer.style.opacity = 0;
+    cardsContainer.style.visibility = 'hidden';
+    
+    // Réinitialiser les écouteurs d'événements et les styles
+    const arrowDown = document.querySelector('.arrow-down');
+    const arrowUp = document.querySelector('.arrow-up');
+    
+    // Forcer le rechargement des styles de hover
+    if (arrowDown) arrowDown.style.pointerEvents = 'auto';
+    if (arrowUp) arrowUp.style.pointerEvents = 'auto';
+    
+    // Réinitialiser tous les styles inline qui pourraient interférer
+    document.querySelectorAll('.button, .social-link').forEach(element => {
+        element.style.transform = '';
+        element.style.pointerEvents = 'auto';
+    });
+    
+    // Réinitialiser les événements des projets pour la prochaine fois
+    if (document.querySelector('.rotator')) {
+        resetProjectEventListeners();
+    }
+    
+    updateActiveMenuItem('home');
+}
+
+        function showAbout() {
+            if (document.body.classList.contains('cards-mode')) {
+                document.body.classList.remove('cards-mode');
+                
+                // Masquer le conteneur des cartes
+                const cardsContainer = document.getElementById('cardsContainer');
+                cardsContainer.style.opacity = 0;
+                cardsContainer.style.visibility = 'hidden';
+            } else {
+                document.body.classList.remove('gallery-mode');
+            }
+            
+            document.body.classList.add('about-mode');
+            
+            // Afficher le wrapper
+            const aboutWrapper = document.getElementById('aboutWrapper');
+            aboutWrapper.style.opacity = 1;
+            aboutWrapper.style.visibility = 'visible';
+            
+            updateActiveMenuItem('about');
+        }
+
+        function showCards() {
+            document.body.classList.remove('about-mode');
+            document.body.classList.add('cards-mode');
+            
+            // Masquer le conteneur about
+            aboutContainer.style.opacity = 0;
+            aboutContainer.style.visibility = 'hidden';
+            
+            // Afficher le conteneur des cartes
+            const cardsContainer = document.getElementById('cardsContainer');
+            cardsContainer.style.opacity = 1;
+            cardsContainer.style.visibility = 'visible';
+            
+            // Réinitialiser à la première carte
+            changeCard(0);
+            
+            updateActiveMenuItem('skills');
+        }
+
+        // Variables pour la gestion des cartes
+let currentCardIndex = 0;
+const cardCount = 3;
+
+// Initialiser la pagination des cartes
+function initCardPagination() {
+    const cardPagination = document.getElementById('cardPagination');
+    const paginationItems = cardPagination.querySelectorAll('.pagination__item');
+    
+    // Ajouter les événements de clic pour chaque élément de pagination
+    paginationItems.forEach((item, index) => {
+        item.querySelector('.pagination__button').addEventListener('click', () => {
+            changeCard(index);
+        });
+    });
+}
+
+// Fonction pour changer de carte
+function changeCard(index) {
+    if (index === currentCardIndex) return;
+    
+    // Mettre à jour l'état de la pagination
+    const paginationItems = document.querySelectorAll('.pagination__item');
+    paginationItems[currentCardIndex].classList.remove('pagination__item--active');
+    paginationItems[index].classList.add('pagination__item--active');
+    
+    // Animer le slider pour montrer la nouvelle carte
+    const cardSlider = document.getElementById('cardSlider');
+    
+    // Correction des valeurs de translation pour chaque carte
+    let translateValue;
+    if (index === 0) {
+        translateValue = 0; // Pour centrer la première carte
+    } else if (index === 1) {
+        translateValue = 50; // Pour centrer la deuxième carte
+    } else if (index === 2) {
+        translateValue = 100; // Pour centrer la troisième carte
+    }
+    
+    cardSlider.style.transform = `translateX(-${translateValue}%)`;
+    
+    // Mettre à jour l'index actuel
+    currentCardIndex = index;
+}
+
+// Mise à jour de la fonction showCards pour initialiser la pagination
+function showCards() {
+    document.body.classList.remove('about-mode');
+    document.body.classList.add('cards-mode');
+    
+    // Masquer le conteneur about
+    aboutContainer.style.opacity = 0;
+    aboutContainer.style.visibility = 'hidden';
+    
+    // Afficher le conteneur des cartes
+    const cardsContainer = document.getElementById('cardsContainer');
+    cardsContainer.style.opacity = 1;
+    cardsContainer.style.visibility = 'visible';
+    
+    // Réinitialiser à la première carte
+    changeCard(0);
+    
+    updateActiveMenuItem('skills');
+}
+
+// Initialiser la pagination au chargement de la page
+document.addEventListener('DOMContentLoaded', () => {
+    initCardPagination();
+});
+
+        // Fonction pour mettre à jour l'élément de menu actif
+function updateActiveMenuItem(mode) {
+  // Retirer la classe active de tous les éléments
+  const menuItems = document.querySelectorAll('.side-navbar ul li');
+  menuItems.forEach(item => item.classList.remove('active'));
+  
+  // Ajouter la classe active à l'élément correspondant au mode
+  let index = 0;
+  switch(mode) {
+    case 'home': index = 0; break;
+    case 'projects': index = 1; break;
+    case 'about': index = 2; break;
+    case 'skills': index = 3; break;
+  }
+  menuItems[index].classList.add('active');
+}
+
+        // Gestion du clavier
+        document.addEventListener('keydown', function(event) {
+            if (event.key === "Escape") {
+                if (document.body.classList.contains('details-mode')) {
+                    goToGallery();
+                } else if (document.body.classList.contains('about-mode')) {
+                    showProjects();
+                }
+            }
+            if (event.key === "ArrowDown") {
+                if (document.body.classList.contains('gallery-mode')) {
+                    // Effet de slide vers le bas avant de passer à about
+                    document.body.style.transform = "translateY(-50px)";
+                    document.body.style.transition = "transform 0.3s ease";
+                    
+                    setTimeout(() => {
+                        document.body.style.transform = "";
+                        showAbout();
+                    }, 300);
+                } else if (document.body.classList.contains('about-mode')) {
+                    // Effet de slide vers le bas avant de passer aux cartes
+                    document.body.style.transform = "translateY(-50px)";
+                    document.body.style.transition = "transform 0.3s ease";
+                    
+                    setTimeout(() => {
+                        document.body.style.transform = "";
+                        showCards();
+                    }, 300);
+                } else if (document.body.classList.contains('details-mode')) {
+                    // Rien pour l'instant
+                } else if (document.body.classList.contains('cards-mode')) {
+                    // rien pour l'instant
+                    
+                    setTimeout(() => {
+                        document.body.style.transform = "";
+                        showProjects();
+                    }, 300);
+                }else {
+                    // Effet de slide vers le bas avant de passer aux projets
+                    document.body.style.transform = "translateY(-50px)";
+                    document.body.style.transition = "transform 0.3s ease";
+                    
+                    setTimeout(() => {
+                        document.body.style.transform = "";
+                        showProjects();
+                    }, 300);
+                }
+            }
+            if (event.key === "ArrowUp") {
+                if (document.body.classList.contains('about-mode')) {
+                    // Effet de slide vers le haut avant de revenir à la galerie
+                    document.body.style.transform = "translateY(50px)";
+                    document.body.style.transition = "transform 0.3s ease";
+                    
+                    setTimeout(() => {
+                        document.body.style.transform = "";
+                        goToGallery();
+                    }, 300);
+                } else if (document.body.classList.contains('gallery-mode')) {
+                    // Effet de slide vers le haut avant de revenir à l'accueil
+                    document.body.style.transform = "translateY(50px)";
+                    document.body.style.transition = "transform 0.3s ease";
+                    
+                    setTimeout(() => {
+                        document.body.style.transform = "";
+                        goToHome();
+                    }, 300);
+                } else if (document.body.classList.contains('cards-mode')) {
+                    // Effet de slide vers le haut avant de revenir à la galerie
+                    document.body.style.transform = "translateY(50px)";
+                    document.body.style.transition = "transform 0.3s ease";
+                    
+                    setTimeout(() => {
+                        document.body.style.transform = "";
+                        showAbout();
+                    }, 300);
+                }  
+            }
+            if (event.key === "ArrowLeft") {
+                if (document.body.classList.contains('details-mode')) {
+                    // Effet de slide vers la gauche avant de changer de projet
+                    const projectContent = document.getElementById('projectContent');
+                    
+                    setTimeout(() => {
+                        projectContent.style.transform = "";
+                        changeProject(-1);
+                    }, 300);
+                } else if (document.body.classList.contains('cards-mode')) {
+                    // Carte précédente
+                    if (currentCardIndex > 0) {
+                        changeCard(currentCardIndex - 1);
+                    }
+                }
+            }
+            if (event.key === "ArrowRight") {
+                if (document.body.classList.contains('details-mode')) {
+                    // Effet de slide vers la droite avant de changer de projet
+                    const projectContent = document.getElementById('projectContent');
+                    
+                    setTimeout(() => {
+                        projectContent.style.transform = "";
+                        changeProject(1);
+                    }, 300);
+                } else if (document.body.classList.contains('cards-mode')) {
+                    // Carte suivante
+                    if (currentCardIndex < 2) {
+                        changeCard(currentCardIndex + 1);
+                    }
+                }
+            }
+        });
+
+        // Ajouter ceci à la fin du script pour gérer le scroll de la souris
+let lastScrollTime = 0;
+const scrollCooldown = 500; // Temps minimum entre deux actions de défilement (en ms)
+const scrollThreshold = 100; // Seuil d'amplitude du défilement
+
+document.addEventListener('wheel', function(event) {
+    // Vérifier si suffisamment de temps s'est écoulé depuis le dernier défilement
+    const now = new Date().getTime();
+    if (now - lastScrollTime < scrollCooldown) {
+        event.preventDefault();
+        return; // Ignorer le défilement si trop rapproché
+    }
+    
+    // Vérifier si l'amplitude du défilement dépasse le seuil
+    if (Math.abs(event.deltaY) < scrollThreshold) {
+        event.preventDefault();
+        return; // Ignorer les petits mouvements
+    }
+    
+    // Mettre à jour le temps du dernier défilement
+    lastScrollTime = now;
+    
+    // Dans la vue détaillée du projet
+    if (document.body.classList.contains('details-mode')) {
+        // Empêcher le défilement normal de la page
+        event.preventDefault();
+        
+        const projectContent = document.getElementById('projectContent');
+        
+        if (event.deltaY > 0) {  // Correction de deltay à deltaY
+            // Scroll vers le bas = projet suivant
+            projectContent.style.transform = "translateX(-100px)";
+            projectContent.style.transition = "transform 0.3s ease";
+            
+            setTimeout(() => {
+                projectContent.style.transform = "";
+                changeProject(1);
+            }, 300);
+        } else {
+            // Scroll vers le haut = projet précédent
+            projectContent.style.transform = "translateX(100px)";
+            projectContent.style.transition = "transform 0.3s ease";
+            
+            setTimeout(() => {
+                projectContent.style.transform = "";
+                changeProject(-1);
+            }, 300);
+        }
+    }
+
+    // Dans bilan
+    else if (document.body.classList.contains('cards-mode')) {
+        // Empêcher le défilement normal de la page
+        event.preventDefault();
+        
+        if (event.deltaY > 0) {
+            // Scroll vers le bas = rien
+            
+        } else {
+            // Scroll vers le haut = à propos
+            document.body.style.transform = "translateY(50px)";
+            document.body.style.transition = "transform 0.3s ease";
+            
+            setTimeout(() => {
+                document.body.style.transform = "";
+                showAbout();
+            }, 300);
+        }
+    }
+    
+    // Dans la vue galerie
+    else if (document.body.classList.contains('gallery-mode')) {
+        if (event.deltaY > 0) {
+            // Scroll vers le bas = aller à About
+            document.body.style.transform = "translateY(-50px)";
+            document.body.style.transition = "transform 0.3s ease";
+            
+            setTimeout(() => {
+                document.body.style.transform = "";
+                showAbout();
+            }, 300);
+        } else {
+            // Scroll vers le haut = retour à l'accueil
+            document.body.style.transform = "translateY(50px)";
+            document.body.style.transition = "transform 0.3s ease";
+            
+            setTimeout(() => {
+                document.body.style.transform = "";
+                goToHome();
+            }, 300);
+        }
+    }
+    
+    // Dans la vue about
+    else if (document.body.classList.contains('about-mode')) {
+        if (event.deltaY < 0) {
+            // Scroll vers le haut = revenir à la galerie
+            document.body.style.transform = "translateY(50px)";
+            document.body.style.transition = "transform 0.3s ease";
+            
+            setTimeout(() => {
+                document.body.style.transform = "";
+                goToGallery();
+            }, 300);
+        }
+    }
+
+    else if (document.body.classList.contains('cards-mode')) {
+       //rien pour l'instant
+       
+    }
+    
+    // Dans la page d'accueil
+    else {
+        if (event.deltaY > 0) {
+            // Scroll vers le bas = aller aux projets
+            document.body.style.transform = "translateY(-50px)";
+            document.body.style.transition = "transform 0.3s ease";
+            
+            setTimeout(() => {
+                document.body.style.transform = "";
+                showProjects();
+            }, 300);
+        }
+    }
+}, { passive: false });
+
+        // Initialisation des cercles
+        const circles = document.querySelectorAll('.circle');
+        let currentCircle = 0;
+        const descriptions = [
+            "Tu es un ENTP (Innovateur), curieux, vif d’esprit et toujours prêt à remettre en question les idées établies. Tu adores créer, débattre et explorer de nouveaux concepts. Ton énergie et ta confiance en toi font de toi un excellent communicant et un moteur dans les projets. Cependant, tu te lasses vite des routines, as parfois du mal à t’organiser et préfères les environnements flexibles où tu peux innover librement.",
+            "<p>•  19 ans</p><p>• BUT Science des Données 2023-2025 parcours Visualisations et Outils Décisionnels</p><p>• Technicien pilotage organisation en alternance chez Groupama</p><p>• Membre de l'association étudiante du BUT SD 2024-2025</p>",
+            "Le handball rythme ma vie depuis mes 4 ans, grâce à mon club, le Niort Handball Souchéen. De jeune joueur à l'école de handball, je suis devenu membre de l'équipe fanion en pré-nationale promue en Nationale 3 cette année, dont j'étais autrefois fan. J'ai grandi avec ce club, y ai rencontré tous mes amis, et m'y suis pleinement investi. Du lundi au vendredi, je m'entraîne, et le week-end, je joue, encourage, et arbitre les équipes du club."
+        ];
+
+        circles.forEach((circle, index) => {
+            circle.addEventListener('mouseenter', () => {
+                // Mettre à jour le texte de la description
+                const descriptionBox = document.querySelector('.about-description');
+                descriptionBox.innerHTML = descriptions[index];
+
+                // Afficher la description avec l'effet
+                descriptionBox.classList.add('visible');
+
+                // Ajouter le flou aux autres cercles et à l'arrière-plan
+                circles.forEach((otherCircle) => {
+                    if (otherCircle !== circle) {
+                        otherCircle.classList.add('blurred');
+                    }
+                });
+
+                // Exclure le cercle survolé et la description du flou
+                circle.style.filter = 'none';
+                descriptionBox.style.filter = 'none';
+                
+                // Agrandir le cercle survolé
+             /*   circle.style.transform = 'scale(3)';
+                circle.style.zIndex = '100';
+                
+                // Agrandir le chemin SVG
+                const arrowPath = document.querySelector('.arrow-path');
+                arrowPath.style.transform = 'scale(3)';
+                arrowPath.style.opacity = '0.8'; */
+                
+                // Appliquer scale au conteneur about
+                const aboutContainer = document.getElementById('aboutContainer');
+                aboutContainer.style.transform = 'scale(1.5)';
+                
+                // Translation du wrapper différente selon l'index du cercle
+                let translateX, translateY, lefttext, toptext;
+                
+                switch(index) {
+                    case 0: // Personalité
+                        translateX = '30%';
+                        translateY = '-35%';
+                        lefttext = '47%';
+                        toptext = '60%';
+                        break;
+                    case 1: // Identité
+                        translateX = '30%';
+                        translateY = '40%';
+                        lefttext = '47%';
+                        toptext = '35%';                        
+                        break;
+                    case 2: // handball
+                        translateX = '-25%';
+                        translateY = '-5%';
+                        lefttext = '55%';
+                        toptext = '50%';                        
+                        break;
+                    default:
+                        translateX = '0';
+                        translateY = '0';
+                        lefttext = '0';
+                        toptext = '0';                        
+                }
+                
+                // Appliquer la translation au wrapper et au texte
+                const aboutWrapper = document.getElementById('aboutWrapper');
+                aboutWrapper.style.transform = `translateX(${translateX}) translateY(${translateY})`;
+        // Réinitialiser d'abord le style de la description box
+                descriptionBox.style.position = 'absolute'; // Changer en position absolue
+                descriptionBox.style.top = toptext;
+                descriptionBox.style.left = lefttext;
+                // Appliquer la nouvelle transformation
+                descriptionBox.style.transform = `translate(-50%, -50%) scale(0.5)`;   
+            });
+
+            // Ajouter l'effet de sortie
+    circle.addEventListener('mouseleave', () => {
+        // Cacher la description
+        const descriptionBox = document.querySelector('.about-description');
+        descriptionBox.classList.remove('visible');
+
+        // Retirer le flou des autres cercles
+        circles.forEach((otherCircle) => {
+            otherCircle.classList.remove('blurred');
+        });
+        
+        // Réinitialiser la taille du cercle
+        circle.style.transform = '';
+        circle.style.zIndex = '';
+        
+        // Réinitialiser la taille du chemin SVG
+        const arrowPath = document.querySelector('.arrow-path');
+        arrowPath.style.transform = '';
+        arrowPath.style.opacity = '';
+        
+        // Réinitialiser la position du wrapper et du conteneur
+        const aboutContainer = document.getElementById('aboutContainer');
+        aboutContainer.style.transform = '';
+        
+        const aboutWrapper = document.getElementById('aboutWrapper');
+        aboutWrapper.style.transform = '';
+    });
+});
+        function updateCircle() {
+            circles.forEach((circle, index) => {
+                circle.classList.toggle('active', index === currentCircle);
+            });
+            document.querySelector('.about-description').innerHTML = descriptions[currentCircle];
+            document.querySelector('.about-description').classList.add('active');
+        }
+        function resetEventListeners() {
+    // Réinitialiser les écouteurs pour les liens sociaux
+    document.querySelectorAll('.social-link').forEach(link => {
+        // Cloner et remplacer pour s'assurer que tous les événements sont nettoyés
+        const newLink = link.cloneNode(true);
+        link.parentNode.replaceChild(newLink, link);
+        
+        // Réappliquer l'effet de hover en JS si nécessaire
+        newLink.addEventListener('mouseenter', function() {
+            this.style.transform = 'translateY(-3px)';
+        });
+        newLink.addEventListener('mouseleave', function() {
+            this.style.transform = '';
+        });
+    });
+    
+    // Réinitialiser les écouteurs pour les projets
+    projects.forEach((project, index) => {
+        const newProject = project.cloneNode(true);
+        project.parentNode.replaceChild(newProject, project);
+        
+        newProject.addEventListener('click', () => {
+            currentProject = index;
+            updateProjectDetails();
+            document.body.classList.remove('gallery-mode');
+            document.body.classList.add('details-mode');
+            projectDetails.style.opacity = 1;
+            projectDetails.style.visibility = 'visible';
+        });
+    });
+}
+        // Initialisation
+        updateCircle();
+    </script>
+</body>
+</html>
